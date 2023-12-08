@@ -1,6 +1,6 @@
 <section class="inner">
-	<h2 class="section-ttl">会員情報編集</h2>
-	<%= form_with model:@customer, url: update_information_path do |f| %>
+	<h2 class="section-ttl"><%= @customer.first_name %> <%= @customer.last_name %> さんの会員情報編集</h2>
+	<%= form_with model:@customer, url: admin_customer_path(@customer) do |f| %>
 		<%= render 'layouts/error_messages', resource: @customer %>
 		<table class="customer_info customer_form">
 			<thead>
@@ -20,24 +20,28 @@
 					<td><%= f.label :last_name_kana, "(メイ)" %> <%= f.text_field :last_name_kana, :placeholder =>"#{@customer.last_name_kana}" %></td>
 				</tr>
 				<tr>
-					<td><%= f.label :email, "メールアドレス" %></td>
+					<td>メールアドレス</td>
 					<td colspan="2"><%= f.email_field :email, autocomplete: "email", :placeholder =>"#{@customer.email}" %></td>
 				</tr>
 				<tr>
-					<td><%= f.label :postal_code, "郵便番号(ハイフンなし7桁)" %></td>
-					<td colspan="2"><%= f.text_field :postal_code, :placeholder =>"#{@customer.postal_code}", class: "jpostal_code" %></td>
+					<td>郵便番号(7桁)</td>
+					<td colspan="2"><%= f.text_field :postal_code, :placeholder =>"#{@customer.postal_code}" %></td>
 				</tr>
 				<tr>
-					<td><%= f.label :address, "住所(郵便番号から自動入力)" %></td>
-					<td colspan="2"><%= f.text_field :address, :placeholder =>"#{@customer.address}", class: "jpostal_address" %></td>
+					<td>住所</td>
+					<td colspan="2" class="field_for_address"><%= f.text_field :address, :placeholder =>"#{@customer.address}" %></td>
 				</tr>
 				<tr>
-					<td><%= f.label :telephone_number, "電話番号(ハイフンなし10or11桁)" %></td>
+					<td>電話番号(ハイフンなし10or11桁)</td>
 					<td colspan="2"><%= f.text_field :telephone_number, :placeholder =>"#{@customer.telephone_number}" %></td>
 				</tr>
 				<tr>
-					<td colspan="2"><%= f.submit "編集内容を保存する", class: "btn btn-primary" %></td>
-					<td><%= link_to "退会する", confirm_unsubscribe_path, class: "btn btn-danger" %></td>
+					<td>会員ステータス</td>
+					<td><%= f.radio_button :is_active, true %><%= f.label :is_active, "有効", class: "text-active" %></td>
+					<td><%= f.radio_button :is_active, false %><%= f.label :is_active, "退会済み", class: "text-invalid" %></td>
+				</tr>
+				<tr>
+					<td colspan="3"><%= f.submit "更新", class: "btn btn-primary" %></td>
 				</tr>
 			</tbody>
 		</table>

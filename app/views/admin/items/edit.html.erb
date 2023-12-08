@@ -1,2 +1,4 @@
-<h1>Admin::Items#edit</h1>
-<p>Find me in app/views/admin/items/edit.html.erb</p>
+<section class="inner">
+	<h2 class="section-ttl"><%= @item.name %>の編集</h2>
+  <%= render 'form', item: @item, url: admin_item_path(@item), submit: '更新' %>
+</section>
