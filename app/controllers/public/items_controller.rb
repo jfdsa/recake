@@ -5,10 +5,11 @@ class Public::ItemsController < ApplicationController
       @genre = @genres.find(params[:genre_id])
       all_items = @genre.items
     else
-      all_items = Item.where_genre_active.includes(:genre)
+      all_items = Item.where_genre_active
     end
-    @items = all_items.page(params[:page]).per(12)
-    @all_items_count = all_items.count
+    active_all_items = all_items.only_active.includes(:genre)
+    @items = active_all_items.page(params[:page]).per(12)
+    @all_items_count = active_all_items.count
   end
 
   def show

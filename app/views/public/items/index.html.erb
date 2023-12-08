@@ -20,11 +20,11 @@
 						<p><%= item.name %></p>
 						<p>
 							<%= item.with_tax_price %>円 
-							<% if item.is_active? %>
+							<% if item.is_active? %><!--研修生の要件なら-->
 								<span class="text-active">販売中</span>
 							<% else %>
 								<span class="text-invalid">販売停止中</span>
-							<% end %>
+							<% end %><!--ここまでいらない-->
 						</p>
 					<% end %>
 				<% end %>

@@ -10,7 +10,7 @@ class Item < ApplicationRecord
   validate :image_type
   
   scope :where_genre_active, -> { joins(:genre).where(genres: { is_active: true }) }
-  
+  scope :only_active, -> { where(is_active: true) }
   
   def get_image(*size)
     unless image.attached?
